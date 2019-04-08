@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Agster</string>
+    <string name="action_settings">Settings</string>
+    <string name="name">Hi, my name is Sanford Winslow</string>
+    <string name="bio">I love to travel. I also enjoy being in the outdoors hiking, mountain biking, mountain
+    climbing, and snowboarding.</string>
+</resources>
