@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,5 +50,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showToast(View view) {
+        Toast toast = Toast.makeText(this, R.string.toast_message1, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    public void showToast2(View view) {
+        Toast toast = Toast.makeText(this, R.string.toast_message2, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    public void showToast3(View view) {
+        Toast toast = Toast.makeText(this, R.string.toast_message3, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    public void showToast4(View view) {
+        Toast toast = Toast.makeText(this, R.string.toast_message4, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    public void showToast5(View view) {
+        Toast toast = Toast.makeText(this, R.string.toast_message5, Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
