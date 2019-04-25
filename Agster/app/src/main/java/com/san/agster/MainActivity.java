@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openButton2() {
-        Intent intent = new Intent(this, ZombieMovies.class);
+        Intent intent = new Intent(this, RecyclerViewActivity.class);
         startActivity(intent);
     }
 
