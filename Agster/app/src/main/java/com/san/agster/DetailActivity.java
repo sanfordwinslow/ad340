@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
+import static com.san.agster.R.id.imageView;
 
 
 public class DetailActivity extends Activity {
