@@ -28,7 +28,7 @@ public class DetailActivity extends Activity {
         TextView director = (TextView)findViewById(R.id.director);
         TextView description = (TextView)findViewById(R.id.description);
         ImageView imageView = (ImageView)findViewById(R.id.imageView);
-        Picasso.get().load(movieInfo[3]).placeholder(R.mipmap.ic_launcher).into(imageView);
+        Picasso.get().load(movieInfo[3]).into(imageView);
         title.setText(movieInfo[0]);
         year.setText(movieInfo[1]);
         director.setText(movieInfo[2]);
