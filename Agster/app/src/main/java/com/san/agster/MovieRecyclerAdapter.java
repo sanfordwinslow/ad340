@@ -58,7 +58,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
         Context context = cardView.getContext();
         String[] movie = movies[position];
         String url = movie[3];
-        Picasso.get().load(url).placeholder(R.mipmap.ic_launcher).into(imageView);
+        Picasso.get().load(url).into(imageView);
         title.setText(movie[0]);
         year.setText(movie[1]);
         cardView.setOnClickListener(new View.OnClickListener() {
