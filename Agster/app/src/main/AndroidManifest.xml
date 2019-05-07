@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.san.agster">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".About"
+            android:label="@string/about_label"
+            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTop"
+            android:taskAffinity=".Track"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -21,8 +27,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecyclerViewActivity"></activity>
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".RecyclerViewActivity"
+            android:label="@string/selector_label"
+            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTop"
+            android:taskAffinity=".Track"/>
+
+        <activity android:name=".DetailActivity"
+            android:label="@string/detail_label"
+            android:parentActivityName=".RecyclerViewActivity"
+            android:launchMode="singleTop"
+            android:taskAffinity=".Track"/>
     </application>
 
 </manifest>

@@ -14,4 +14,9 @@
     <string name="toast_message3">Logged Out!</string>
     <string name="toast_message4">Signed Up!</string>
     <string name="toast_message5">Updated!</string>
+    <string name="action_info">Information</string>
+    <string name="about">This is an App that belongs to Sanford Winslow</string>
+    <string name="about_label">ABOUT</string>
+    <string name="detail_label">MOVIE DETAIL</string>
+    <string name="selector_label">MOVIE SELECTOR</string>
 </resources>
