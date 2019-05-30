@@ -32,17 +32,43 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        button = (Button) findViewById(R.id.button2_toast);
+        Button button = (Button) findViewById(R.id.button2_toast);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openButton2();
             }
         });
+
+        Button button4 = (Button) findViewById(R.id.button4_toast);
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openButton4();
+            }
+        });
+
+        Button button3 = (Button) findViewById(R.id.button3_toast);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openButton3();
+            }
+        });
     }
 
     public void openButton2() {
         Intent intent = new Intent(this, RecyclerViewActivity.class);
+        startActivity(intent);
+    }
+
+    public void openButton4() {
+        Intent intent = new Intent(this, CameraList.class);
+        startActivity(intent);
+    }
+
+    public void openButton3() {
+        Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
 
