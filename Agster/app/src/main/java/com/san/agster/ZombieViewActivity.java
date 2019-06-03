@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class RecyclerViewActivity extends AppCompatActivity {
+public class ZombieViewActivity extends AppCompatActivity {
     final static String TAG = "RecyclerView goes: ";
     final static String RESULT  = "My Response: ";
 
@@ -53,7 +53,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
             public void onClick(int position) {
                 Log.i(TAG, "Clicked " + movies[position][0]);
                 Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-                intent.putExtra(RecyclerViewActivity.RESULT, movies[position]);
+                intent.putExtra(ZombieViewActivity.RESULT, movies[position]);
                 startActivity(intent);
             }
         });

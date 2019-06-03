@@ -41,7 +41,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecyclerViewActivity"
+        <activity android:name=".ZombieViewActivity"
             android:label="@string/selector_label"
             android:parentActivityName=".MainActivity"
             android:launchMode="singleTop"
@@ -49,7 +49,7 @@
 
         <activity android:name=".DetailActivity"
             android:label="@string/detail_label"
-            android:parentActivityName=".RecyclerViewActivity"
+            android:parentActivityName=".ZombieViewActivity"
             android:launchMode="singleTop"
             android:taskAffinity=".Track"/>
 
@@ -58,6 +58,9 @@
             android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".NoNetworkConnection"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity android:name=".TeamActivity"
             android:parentActivityName=".MainActivity"/>
 
 

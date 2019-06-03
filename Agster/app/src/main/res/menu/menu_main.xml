@@ -9,7 +9,7 @@
         app:showAsAction="never" />
 
     <item android:id="@+id/item_info"
-        android:icon="@drawable/ic_info"
+        android:icon="@drawable/ic_launcher_foreground"
         android:title="@string/action_info"
         app:showAsAction="ifRoom" />
 </menu>

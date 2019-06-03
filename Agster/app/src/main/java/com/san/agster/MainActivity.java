@@ -2,18 +2,40 @@ package com.san.agster;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.internal.NavigationMenu;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+
 
 public class MainActivity extends AppCompatActivity {
     private Button button;
+
+    private EditText myEmailField;
+    private EditText myPasswordField;
+
+    private static final String TAG = "Sign In";
+    private static final String NAME = "Sanford Winslow - AD340 - Tuesday";
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        FirebaseApp.initializeApp(this);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -31,20 +55,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button button1 = (Button) findViewById(R.id.button_toast);
 
-        Button button = (Button) findViewById(R.id.button2_toast);
-        button.setOnClickListener(new View.OnClickListener() {
+        myEmailField = (EditText) findViewById(R.id.editText3);
+        myPasswordField = (EditText) findViewById(R.id.editText4);
+
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                openButton2();
+            public void onClick(View v) {
+                login();
             }
         });
 
-        Button button4 = (Button) findViewById(R.id.button4_toast);
-        button4.setOnClickListener(new View.OnClickListener() {
+        Button button2 = (Button) findViewById(R.id.button2_toast);
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openButton4();
+                openButton2();
             }
         });
 
@@ -55,10 +82,80 @@ public class MainActivity extends AppCompatActivity {
                 openButton3();
             }
         });
+
+        Button button4 = (Button) findViewById(R.id.button4_toast);
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openButton4();
+            }
+        });
+    }
+
+
+
+    private void login() {
+        Log.d(TAG, "login");
+        if(!validateForm()) {
+            return;
+        }
+
+        String email = myEmailField.getText().toString();
+        String password = myPasswordField.getText().toString();
+
+        FirebaseAuth myAuth = FirebaseAuth.getInstance();
+        myAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                    Log.d("Firebase", "signIn:onComplete: " + task.isSuccessful());
+
+                    if(task.isSuccessful()) {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(NAME).build();
+
+                        user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()) {
+                                    Log.d("Firebase", "user profile updated");
+                                    startActivity(new Intent(MainActivity.this, TeamActivity.class));
+                                }
+                            }
+                        });
+            } else {
+                        Log.d("Firebase", "sign in failed");
+                        Toast.makeText(MainActivity.this, "Sign In Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    private boolean validateForm() {
+        boolean result = true;
+        if(TextUtils.isEmpty(myEmailField.getText().toString())) {
+            myEmailField.setError("Email Required");
+            result = false;
+        } else {
+            myEmailField.setError(null);
+        }
+
+        if(TextUtils.isEmpty(myPasswordField.getText().toString())) {
+            myPasswordField.setError("Password Required");
+            result = false;
+        } else {
+            myPasswordField.setError(null);
+        }
+        return result;
     }
 
     public void openButton2() {
-        Intent intent = new Intent(this, RecyclerViewActivity.class);
+        Intent intent = new Intent(this, ZombieViewActivity.class);
+        startActivity(intent);
+    }
+
+    public void openButton3() {
+        Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
 
@@ -67,9 +164,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openButton3() {
-        Intent intent = new Intent(this, MapActivity.class);
-        startActivity(intent);
+    public void showToast5(View view) {
+        Toast toast = Toast.makeText(this, R.string.toast_message5, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     @Override
@@ -100,30 +197,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void showToast(View view) {
-        Toast toast = Toast.makeText(this, R.string.toast_message1, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    public void showToast2(View view) {
-        Toast toast = Toast.makeText(this, R.string.toast_message2, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    public void showToast3(View view) {
-        Toast toast = Toast.makeText(this, R.string.toast_message3, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    public void showToast4(View view) {
-        Toast toast = Toast.makeText(this, R.string.toast_message4, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    public void showToast5(View view) {
-        Toast toast = Toast.makeText(this, R.string.toast_message5, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
 
 }
+
+
+

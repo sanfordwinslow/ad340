@@ -34,11 +34,13 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
     }
 
     public MovieRecyclerAdapter(String[][] movies) {
+
         this.movies = movies;
     }
 
     @Override
     public int getItemCount() {
+
         return movies.length;
     }
 

@@ -3,13 +3,9 @@ package com.san.agster;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
-
-import static com.san.agster.R.id.imageView;
 
 
 public class DetailActivity extends Activity {
@@ -21,7 +17,7 @@ public class DetailActivity extends Activity {
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         Intent intent = getIntent();
-        String[] movieInfo = intent.getStringArrayExtra(RecyclerViewActivity.RESULT);
+        String[] movieInfo = intent.getStringArrayExtra(ZombieViewActivity.RESULT);
         setContentView(R.layout.movie_detail_description);
         TextView title = (TextView)findViewById(R.id.title);
         TextView year = (TextView)findViewById(R.id.year);
@@ -33,21 +29,6 @@ public class DetailActivity extends Activity {
         year.setText(movieInfo[1]);
         director.setText(movieInfo[2]);
         description.setText(movieInfo[4]);
-
-
-
-
-        /*
-        image.loadUrl(movieInfo[3]);
-        image.setWebViewClient(new WebViewClient() {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        return false;
-        }
-        });
-
-        image.getSettings().setLoadWithOverviewMode(true);
-        image.getSettings().setUseWideViewPort(true);*/
 
     }
 
