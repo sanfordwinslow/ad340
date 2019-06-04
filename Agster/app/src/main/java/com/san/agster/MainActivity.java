@@ -1,21 +1,26 @@
 package com.san.agster;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenu;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,9 +38,18 @@ public class MainActivity extends AppCompatActivity {
     private EditText myEmailField;
     private EditText myPasswordField;
 
+    private String lastEmail;
+    private String lastPassword;
+
     private static final String TAG = "Sign In";
     private static final String NAME = "Sanford Winslow - AD340 - Tuesday";
     private ProgressBar progressBar;
+
+    SharedPreferences myPreferences;
+    private String shredPreFile = "com.san.agster";
+
+    public static final String Email = "email";
+    public static final String Password = "password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        myPreferences = getSharedPreferences(shredPreFile, MODE_PRIVATE);
+        myEmailField = (EditText) findViewById(R.id.editText3);
+        myPasswordField = (EditText) findViewById(R.id.editText4);
+
+        lastEmail = myPreferences.getString(Email, "");
+        lastPassword = myPreferences.getString(Password, "");
+
+        myEmailField.setText(lastEmail);
+        myPasswordField.setText(lastPassword);
 
         FirebaseApp.initializeApp(this);
 
@@ -56,9 +80,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button button1 = (Button) findViewById(R.id.button_toast);
-
-        myEmailField = (EditText) findViewById(R.id.editText3);
-        myPasswordField = (EditText) findViewById(R.id.editText4);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
 
         String email = myEmailField.getText().toString();
         String password = myPasswordField.getText().toString();
+
+        SharedPreferences.Editor preferenceEditor = myPreferences.edit();
+        preferenceEditor.putString(Email, email);
+        preferenceEditor.putString(Password, password);
+        preferenceEditor.commit();
 
         FirebaseAuth myAuth = FirebaseAuth.getInstance();
         myAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
