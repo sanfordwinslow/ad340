@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
@@ -35,19 +36,22 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class MainActivity extends AppCompatActivity {
     private Button button;
 
+    private EditText myName;
     private EditText myEmailField;
     private EditText myPasswordField;
 
+    private String lastName;
     private String lastEmail;
     private String lastPassword;
 
     private static final String TAG = "Sign In";
-    private static final String NAME = "Sanford Winslow - AD340 - Tuesday";
+    //private static final String NAME = "Sanford Winslow - AD340 - Tuesday";
     private ProgressBar progressBar;
 
     SharedPreferences myPreferences;
     private String shredPreFile = "com.san.agster";
 
+    public static final String Name = "";
     public static final String Email = "email";
     public static final String Password = "password";
 
@@ -59,12 +63,15 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         myPreferences = getSharedPreferences(shredPreFile, MODE_PRIVATE);
+        myName = (EditText) findViewById(R.id.editText);
         myEmailField = (EditText) findViewById(R.id.editText3);
         myPasswordField = (EditText) findViewById(R.id.editText4);
 
+        lastName = myPreferences.getString(Name, "");
         lastEmail = myPreferences.getString(Email, "");
         lastPassword = myPreferences.getString(Password, "");
 
+        myName.setText(lastName);
         myEmailField.setText(lastEmail);
         myPasswordField.setText(lastPassword);
 
@@ -121,10 +128,12 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        final String username = myName.getText().toString();
         String email = myEmailField.getText().toString();
         String password = myPasswordField.getText().toString();
 
         SharedPreferences.Editor preferenceEditor = myPreferences.edit();
+        preferenceEditor.putString(Name, username);
         preferenceEditor.putString(Email, email);
         preferenceEditor.putString(Password, password);
         preferenceEditor.commit();
@@ -137,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if(task.isSuccessful()) {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(NAME).build();
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
 
                         user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -159,6 +168,14 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean validateForm() {
         boolean result = true;
+
+        if(TextUtils.isEmpty(myName.getText().toString())) {
+            myName.setError("Name required");
+            result = false;
+        } else {
+            myName.setError(null);
+        }
+
         if(TextUtils.isEmpty(myEmailField.getText().toString())) {
             myEmailField.setError("Email Required");
             result = false;

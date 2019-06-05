@@ -18,4 +18,5 @@
     <string name="selector_label">MOVIE SELECTOR</string>
     <string name="no_connection">no_connection</string>
     <string name="no_connection_next_line">no_connection_next</string>
+    <string name="word">Name</string>
 </resources>
