@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     private String lastPassword;
 
     private static final String TAG = "Sign In";
-    //private static final String NAME = "Sanford Winslow - AD340 - Tuesday";
     private ProgressBar progressBar;
 
     SharedPreferences myPreferences;
@@ -166,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private boolean validateForm() {
+    public boolean validateForm() {
         boolean result = true;
 
         if(TextUtils.isEmpty(myName.getText().toString())) {
